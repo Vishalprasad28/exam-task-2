@@ -1,0 +1,5 @@
+name: 'products api'
+type: module
+description: 'A Module to fascilate the users to fetch the product data through an api.'
+package: Custom
+core_version_requirement: ^10

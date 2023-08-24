@@ -1,0 +1,4 @@
+services:
+  customer_service.db_operations:
+    class: 'Drupal\customer_service\Services\DatabaseHandler'
+    arguments: ['@database']
