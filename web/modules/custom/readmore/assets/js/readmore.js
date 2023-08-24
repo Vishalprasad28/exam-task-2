@@ -14,7 +14,7 @@
             var summary = $(this).closest('.readmore-summary');
             summary.hide();
             summary.next('.readmore-text').slideDown(100);
-            return FALSE;
+            return false;
           });
         });
 
@@ -24,7 +24,7 @@
             var text = $(this).closest('.readmore-text');
             text.slideUp(100);
             text.prev('.readmore-summary').slideDown(100);
-            return FALSE;
+            return false;
           });
         });
     }

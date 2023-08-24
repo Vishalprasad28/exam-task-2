@@ -5,9 +5,6 @@ field.formatter.settings.readmore:
     trim_length:
       type: integer
       label: 'Trim link text length'
-    trim_by_word:
-      type: boolean
-      label: 'Trim by word'
     trim_on_break:
       type: boolean
       label: 'Trim on break'

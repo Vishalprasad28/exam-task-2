@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\readmore\Plugin\field\FieldFormatter\ReadmoreFormatter.
+ */
+
 namespace Drupal\readmore\Plugin\Field\FieldFormatter;
 
 use Drupal\Component\Utility\Html;
@@ -8,8 +13,6 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
-use Drupal\Core\Path\CurrentPathStack;
-use Drupal\Core\Path\PathValidator;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Render\RendererInterface;
@@ -39,20 +42,6 @@ class ReadmoreFormatter extends FormatterBase implements ContainerFactoryPluginI
   protected $renderer;
 
   /**
-   * The Current Path handler service.
-   *
-   * @var \Drupal\Core\Path\CurrentPathStack
-   */
-  protected $currentPath;
-
-  /**
-   * The Path Validator service.
-   *
-   * @var \Drupal\Core\Path\PathValidator
-   */
-  protected $pathValidator;
-
-  /**
    * Constructs a FormatterBase object.
    *
    * @param string $plugin_id
@@ -71,17 +60,10 @@ class ReadmoreFormatter extends FormatterBase implements ContainerFactoryPluginI
    *   Any third party settings.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer service.
-   * @param \Drupal\Core\Path\CurrentPathStack $current_path
-   *   The current path handler service.
-   * @param \Drupal\Core\Path\PathValidator $path_validator
-   *   The Path Validator service.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, RendererInterface $renderer, CurrentPathStack $current_path, PathValidator $path_validator) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, RendererInterface $renderer) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->renderer = $renderer;
-    $this->currentPath = $current_path;
-    $this->pathValidator = $path_validator;
-
   }
 
   /**
@@ -96,9 +78,7 @@ class ReadmoreFormatter extends FormatterBase implements ContainerFactoryPluginI
       $configuration['label'],
       $configuration['view_mode'],
       $configuration['third_party_settings'],
-      $container->get('renderer'),
-      $container->get('path.current'),
-      $container->get('path.validator')
+      $container->get('renderer')
     );
   }
 
@@ -106,15 +86,15 @@ class ReadmoreFormatter extends FormatterBase implements ContainerFactoryPluginI
    * {@inheritdoc}
    */
   public static function defaultSettings() {
-    return [
+    return array(
       'trim_length'   => '500',
       'trim_on_break' => TRUE,
       'show_readmore' => TRUE,
-      'trim_by_word' => FALSE,
       'show_readless' => FALSE,
+      'trim_by_word' => FALSE,
       'ellipsis'      => TRUE,
       'wordsafe'      => FALSE,
-    ] + parent::defaultSettings();
+    ) + parent::defaultSettings();
   }
 
   /**
@@ -238,8 +218,8 @@ class ReadmoreFormatter extends FormatterBase implements ContainerFactoryPluginI
 
     $settings = $this->getSettings();
 
-    $current_path = $this->currentPath->getPath();
-    $url_object = $this->pathValidator->getUrlIfValid($current_path);
+    $current_path = \Drupal::service('path.current')->getPath();
+    $url_object = \Drupal::service('path.validator')->getUrlIfValid($current_path);
     $route_name = $url_object->getRouteName();
     $route_parameters = $url_object->getRouteParameters();
     $current_url = Url::fromRoute($route_name, $route_parameters, ['absolute' => TRUE]);
