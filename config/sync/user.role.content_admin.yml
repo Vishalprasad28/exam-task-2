@@ -1,0 +1,21 @@
+uuid: 5d3f6b9d-cdbe-4859-a3d9-6fac61e10c2d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.product
+  module:
+    - node
+id: content_admin
+label: 'content admin'
+weight: 5
+is_admin: null
+permissions:
+  - 'create product content'
+  - 'delete any product content'
+  - 'delete own product content'
+  - 'delete product revisions'
+  - 'edit any product content'
+  - 'edit own product content'
+  - 'revert product revisions'
+  - 'view product revisions'

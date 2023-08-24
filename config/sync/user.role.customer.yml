@@ -1,0 +1,14 @@
+uuid: 03510ec1-990a-4f0c-884d-ce994b02b80f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.product
+  module:
+    - node
+id: customer
+label: customer
+weight: 4
+is_admin: null
+permissions:
+  - 'view product revisions'

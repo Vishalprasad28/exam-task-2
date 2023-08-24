@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the customer service module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function customer_service_schema() {
+  $schema['customer_addresses'] = [
+    'description' => 'Contains the address of the customers',
+    'fields' => [
+      'id' => [
+        'description' => 'This is the primary key of the table',
+        'type' => 'serial',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'uid' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'address' => [
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => TRUE,
+        'description' => 'Address of the user.',
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+
+  return $schema;
+}

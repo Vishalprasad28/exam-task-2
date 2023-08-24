@@ -1,0 +1,12 @@
+products_api.get_data:
+  path: '/products-api/get-data/{limit}'
+  defaults:
+    _title: 'API Data'
+    _controller: '\Drupal\products_api\Controller\ProductsApiController::invoke'
+    limit: 1
+  methods: [GET]
+  requirements:
+    _permission: 'access content'
+  options:
+    limit:
+      type: integer

@@ -1,0 +1,7 @@
+name: 'customer service'
+type: module
+description: 'A Module to provide some customer related services.'
+package: Custom
+core_version_requirement: ^10
+dependencies:
+  - products_api:products_api
